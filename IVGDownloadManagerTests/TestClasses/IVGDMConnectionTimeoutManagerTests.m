@@ -9,12 +9,14 @@
 #import "IVGDMConnectionTimeoutManager.h"
 #import "IVGDMConstants.h"
 
-#define kTestTimeout 10.0
+#define kTestTimeout 5.0
 
-@interface IVGDMConnectionTimeoutManagerTests : GHAsyncTestCase
+@interface IVGDMConnectionTimeoutManagerTests : GHAsyncTestCase<IVGDMConnectionTimeoutDelegate>
 {
     IVGDMConnectionTimeoutManager *connectionTimeoutManager_;
     NSURLConnection *dummyConnection_;
+    int connectionTimeoutWaitStatus_;
+    SEL connectionTimeoutSelector_;
 }
 @end
 
@@ -23,6 +25,7 @@
 - (void) setUp
 {
 	connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
+    connectionTimeoutManager_.delegate = self;
     dummyConnection_ = [[NSURLConnection alloc] init];
 }
 
@@ -33,30 +36,29 @@
 	[connectionTimeoutManager_ release];
 }
 
+- (void) connectionTimeout:(NSURLConnection *) connection;
+{
+    [self notify:connectionTimeoutWaitStatus_ forSelector:connectionTimeoutSelector_];
+}
+
 - (void) testTimeoutShouldOccur
 {
     [self prepare];
     
-    [connectionTimeoutManager_ 
-     startMonitoringConnection:dummyConnection_ 
-     forTimeout:kTestTimeout
-     onTimeout:^{
-         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testTimeoutShouldOccur)];
-     }];
-    
+    connectionTimeoutWaitStatus_ = kGHUnitWaitStatusSuccess;
+    connectionTimeoutSelector_ = @selector(testTimeoutShouldOccur);
+    [connectionTimeoutManager_ startMonitoringConnection:dummyConnection_ forTimeout:kTestTimeout];
+
     [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
 }
 
 - (void) testTimeoutShouldNotOccur
 {
     [self prepare];
-    
-    [connectionTimeoutManager_ 
-     startMonitoringConnection:dummyConnection_ 
-     forTimeout:kTestTimeout*2
-     onTimeout:^{
-         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testTimeoutShouldNotOccur)];
-     }];
+
+    connectionTimeoutWaitStatus_ = kGHUnitWaitStatusFailure;
+    connectionTimeoutSelector_ = @selector(testTimeoutShouldNotOccur);
+    [connectionTimeoutManager_ startMonitoringConnection:dummyConnection_ forTimeout:kTestTimeout*2];
     
     [self waitForTimeout:kTestTimeout];
 }

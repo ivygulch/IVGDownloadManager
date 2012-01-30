@@ -8,7 +8,6 @@
 
 #import "IVGDownloadManager.h"
 #import "IVGDMConnectionBlockMap.h"
-#import "IVGDMConnectionTimeoutManager.h"
 
 @interface IVGDownloadManager()
 @property (nonatomic,retain) IVGDMConnectionBlockMap *connectionBlockMap;
@@ -28,6 +27,7 @@
         baseURL_ = [baseURL copy];
         connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
         connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
+        connectionTimeoutManager_.delegate = self;
     }
     return self;
 }
@@ -39,6 +39,30 @@
     [connectionTimeoutManager_ release], connectionTimeoutManager_ = nil;
     
     [super dealloc];
+}
+
+- (void) connectionSuccess:(NSURLConnection *) connection 
+{
+    IVGDMSuccessBlock successBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeSuccess forConnection:connection];    
+    if (successBlock) {
+        successBlock();
+    }
+}
+
+- (void) connectionFailure:(NSURLConnection *) connection error:(NSError *) error; 
+{
+    IVGDMErrorBlock errorBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeFailure forConnection:connection];    
+    if (errorBlock) {
+        errorBlock(error);
+    }
+}
+
+- (void) connectionTimeout:(NSURLConnection *) connection {
+    [connection cancel];
+    IVGDMTimeoutBlock timeoutBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeTimeout forConnection:connection];    
+    if (timeoutBlock) {
+        timeoutBlock();
+    }
 }
 
 - (void) startConnection:(NSURLConnection *) connection withTimeout:(NSTimeInterval) timeout {
@@ -57,6 +81,7 @@
     [self.connectionBlockMap addBlock:successBlock type:kIVGDMBlockTypeSuccess forConnection:connection];
     [self.connectionBlockMap addBlock:failureBlock type:kIVGDMBlockTypeFailure forConnection:connection];
     [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
+    [self.connectionTimeoutManager startMonitoringConnection:connection forTimeout:timeout];
 
     [self startConnection:connection withTimeout:timeout];
 }
@@ -65,26 +90,32 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {    
+    [self connectionFailure:connection error:error];
 }
 
 #pragma mark - NSURLConnectionDataDelegate methods
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 {    
+    NSLog(@"didReceiveResponse");
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 {    
+    NSString *s = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    NSLog(@"didReceiveData: %u/%@", [data length], s);
 }
 
 - (void)connection:(NSURLConnection *)connection   didSendBodyData:(NSInteger)bytesWritten
  totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
 {    
+    NSLog(@"didSendBodyData");
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {    
+    [self connectionSuccess:connection];
 }
 
 @end

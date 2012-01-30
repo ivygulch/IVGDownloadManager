@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "IVGDMConstants.h"
+#import "IVGDMConnectionTimeoutManager.h"
 
-@interface IVGDownloadManager : NSObject<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
+@interface IVGDownloadManager : NSObject<NSURLConnectionDelegate,NSURLConnectionDataDelegate,IVGDMConnectionTimeoutDelegate>
 
 @property (nonatomic,copy) NSString* baseURL;
 

@@ -13,15 +13,14 @@
 @property (nonatomic,retain) NSTimer *timer;
 @property (nonatomic,retain) NSMutableDictionary *connectionTimestampMap;
 @property (nonatomic,retain) NSMutableDictionary *connectionTimeoutMap;
-@property (nonatomic,retain) IVGDMConnectionBlockMap *connectionBlockMap;
 @end
 
 @implementation IVGDMConnectionTimeoutManager
 
+@synthesize delegate = delegate_;
 @synthesize timer = timer_;
 @synthesize connectionTimestampMap = connectionTimestampMap_;
 @synthesize connectionTimeoutMap = connectionTimeoutMap_;
-@synthesize connectionBlockMap = connectionBlockMap_;
 
 - (id)init;
 {
@@ -29,23 +28,28 @@
     if (self) {
         connectionTimestampMap_ = [[NSMutableDictionary alloc] init];
         connectionTimeoutMap_ = [[NSMutableDictionary alloc] init];
-        connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
     }
     return self;
 }
 
 - (void) dealloc 
 {
+    delegate_ = nil;
     [timer_ release], timer_ = nil;
     [connectionTimestampMap_ release], connectionTimestampMap_ = nil;
     [connectionTimeoutMap_ release], connectionTimeoutMap_ = nil;
-    [connectionBlockMap_ release], connectionBlockMap_ = nil;
     
     [super dealloc];
 }
 
 - (id) connectionAsKey:(NSURLConnection *) connection {
     return [NSValue valueWithPointer:connection];
+}
+
+- (void) handleConnectionTimeout:(NSURLConnection *) connection;
+{
+    [self stopMonitoringConnection:connection];
+    [self.delegate connectionTimeout:connection];
 }
 
 - (void) checkConnectionTimeout:(NSURLConnection *) connection forDate:(NSDate *) checkDate;
@@ -56,9 +60,7 @@
     NSDate *timeoutTimestamp = [NSDate dateWithTimeInterval:timeout sinceDate:lastTimestamp];
     
     if ([timeoutTimestamp compare:checkDate] == NSOrderedAscending) {
-        IVGDMTimeoutBlock timeoutBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeTimeout forConnection:connection];
-        timeoutBlock();
-        [self stopMonitoringConnection:connection];
+        [self handleConnectionTimeout:connection];
     }
 }
 
@@ -90,11 +92,9 @@
 
 - (void) startMonitoringConnection:(NSURLConnection *) connection 
                         forTimeout:(NSTimeInterval) timeout
-                         onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 {
     id ucKey = [self connectionAsKey:connection];
     [self.connectionTimeoutMap setObject:[NSNumber numberWithDouble:timeout] forKey:ucKey];
-    [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
     [self.connectionTimestampMap setObject:[NSDate date] forKey:ucKey];
     [self checkTimer];
 }
@@ -103,7 +103,6 @@
 {
     id ucKey = [self connectionAsKey:connection];
     [self.connectionTimestampMap removeObjectForKey:ucKey];
-    [self.connectionBlockMap removeBlockForType:kIVGDMBlockTypeTimeout forConnection:connection];
     [self.connectionTimeoutMap removeObjectForKey:ucKey];
     [self checkTimer];
 }
