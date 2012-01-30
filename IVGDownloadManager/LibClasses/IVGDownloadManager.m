@@ -7,30 +7,79 @@
 //
 
 #import "IVGDownloadManager.h"
+#import "IVGDMConnectionBlockMap.h"
+
+@interface IVGDownloadManager()
+@property (nonatomic,retain) IVGDMConnectionBlockMap *connectionBlockMap;
+@end
 
 @implementation IVGDownloadManager
 
+@synthesize connectionBlockMap = connectionBlockMap_;
 @synthesize baseURL = baseURL_;
 
-- (id)initWithBaseURL:(NSString *) baseURL
+- (id)initWithBaseURL:(NSString *) baseURL;
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
+        baseURL_ = [baseURL copy];
+        connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
     }
-    
     return self;
 }
 
 - (void) dealloc 
 {
     [baseURL_ release], baseURL_ = nil;
+    [connectionBlockMap_ release], connectionBlockMap_ = nil;
     
     [super dealloc];
 }
 
-- (void) verifyConnectionOnSuccess:(IVGDMResultBlock) successBlock onError:(IVGDMErrorBlock) errorBlock;
+- (void) startConnection:(NSURLConnection *) connection withTimeout:(NSTimeInterval) timeout {
+    
+}
+
+
+- (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
+                           onSuccess:(void(^)()) successBlock 
+                           onFailure:(void(^)(NSError *error)) failureBlock
+                           onTimeout:(void(^)()) timeoutBlock;
 {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.baseURL]];
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+    
+    [self.connectionBlockMap addBlock:successBlock type:kIVGDMBlockTypeSuccess forConnection:connection];
+    [self.connectionBlockMap addBlock:failureBlock type:kIVGDMBlockTypeFailure forConnection:connection];
+    [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
+
+    [self startConnection:connection withTimeout:timeout];
+}
+
+#pragma mark - NSURLConnectionDelegate methods
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{    
+}
+
+#pragma mark - NSURLConnectionDataDelegate methods
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
+{    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
+{    
+}
+
+- (void)connection:(NSURLConnection *)connection   didSendBodyData:(NSInteger)bytesWritten
+ totalBytesWritten:(NSInteger)totalBytesWritten
+totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
+{    
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection;
+{    
 }
 
 @end

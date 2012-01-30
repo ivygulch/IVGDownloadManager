@@ -20,7 +20,13 @@
 		F879DC2E14D642E900A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */; };
 		F879DC3014D6431E00A3DA1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */; };
 		F879DC3114D6432E00A3DA1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */; };
-		F879DC3914D6488800A3DA1C /* IVGDownloadManagerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */; };
+		F879DC3914D6488800A3DA1C /* IVGDMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F879DC3714D6488800A3DA1C /* IVGDMConstants.h */; };
+		F88A470114D655A600C9B205 /* IVGDMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A46FF14D655A600C9B205 /* IVGDMConstants.m */; };
+		F88A470214D655A600C9B205 /* IVGDMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A46FF14D655A600C9B205 /* IVGDMConstants.m */; };
+		F88A470614D65AE000C9B205 /* IVGDMConnectionBlockMap.h in Headers */ = {isa = PBXBuildFile; fileRef = F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */; };
+		F88A470714D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */; };
+		F88A470814D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */; };
+		F88A470B14D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +51,11 @@
 		F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManager.h; sourceTree = "<group>"; };
 		F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
 		F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManagerConstants.h; sourceTree = "<group>"; };
+		F879DC3714D6488800A3DA1C /* IVGDMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConstants.h; sourceTree = "<group>"; };
+		F88A46FF14D655A600C9B205 /* IVGDMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConstants.m; sourceTree = "<group>"; };
+		F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConnectionBlockMap.h; sourceTree = "<group>"; };
+		F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionBlockMap.m; sourceTree = "<group>"; };
+		F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionBlockMapTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */,
+				F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */,
 			);
 			path = TestClasses;
 			sourceTree = "<group>";
@@ -199,9 +210,12 @@
 		F879DC2914D642E900A3DA1C /* LibClasses */ = {
 			isa = PBXGroup;
 			children = (
-				F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */,
+				F879DC3714D6488800A3DA1C /* IVGDMConstants.h */,
+				F88A46FF14D655A600C9B205 /* IVGDMConstants.m */,
 				F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */,
 				F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */,
+				F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */,
+				F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */,
 			);
 			path = LibClasses;
 			sourceTree = "<group>";
@@ -214,7 +228,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F879DC2C14D642E900A3DA1C /* IVGDownloadManager.h in Headers */,
-				F879DC3914D6488800A3DA1C /* IVGDownloadManagerConstants.h in Headers */,
+				F879DC3914D6488800A3DA1C /* IVGDMConstants.h in Headers */,
+				F88A470614D65AE000C9B205 /* IVGDMConnectionBlockMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F879DC2D14D642E900A3DA1C /* IVGDownloadManager.m in Sources */,
+				F88A470114D655A600C9B205 /* IVGDMConstants.m in Sources */,
+				F88A470714D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +325,9 @@
 				F879DC0C14D641B300A3DA1C /* GHUnitIOSTestMain.m in Sources */,
 				F879DC2314D6425900A3DA1C /* IVGDownloadManagerTests.m in Sources */,
 				F879DC2E14D642E900A3DA1C /* IVGDownloadManager.m in Sources */,
+				F88A470214D655A600C9B205 /* IVGDMConstants.m in Sources */,
+				F88A470814D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */,
+				F88A470B14D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

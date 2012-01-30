@@ -7,13 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "IVGDownloadManagerConstants.h"
+#import "IVGDMConstants.h"
 
-@interface IVGDownloadManager : NSObject
+@interface IVGDownloadManager : NSObject<NSURLConnectionDelegate,NSURLConnectionDataDelegate>
 
 @property (nonatomic,copy) NSString* baseURL;
 
 - (id)initWithBaseURL:(NSString *) baseURL;
-- (void) verifyConnectionOnSuccess:(IVGDMResultBlock) successBlock onError:(IVGDMErrorBlock) errorBlock;
+- (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
+                           onSuccess:(void(^)()) successBlock 
+                           onFailure:(void(^)(NSError *error)) failureBlock
+                           onTimeout:(void(^)()) timeoutBlock;
 
 @end
