@@ -15,8 +15,8 @@
 
 - (id)initWithBaseURL:(NSString *) baseURL;
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
-                           onSuccess:(void(^)()) successBlock 
-                           onFailure:(void(^)(NSError *error)) failureBlock
-                           onTimeout:(void(^)()) timeoutBlock;
+                           onSuccess:(IVGDMSuccessBlock) successBlock 
+                           onFailure:(IVGDMErrorBlock) failureBlock
+                           onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 
 @end

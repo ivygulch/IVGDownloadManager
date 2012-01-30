@@ -42,9 +42,9 @@
 
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
-                           onSuccess:(void(^)()) successBlock 
-                           onFailure:(void(^)(NSError *error)) failureBlock
-                           onTimeout:(void(^)()) timeoutBlock;
+                           onSuccess:(IVGDMSuccessBlock) successBlock 
+                           onFailure:(IVGDMErrorBlock) failureBlock
+                           onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.baseURL]];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];

@@ -11,13 +11,6 @@
 
 #define kTestBaseURL @"http://ivygulch.com/test/IVGDownloadManagerTests"
 #define kTestTimeout 10.0
-enum {
-    kWaitStatusUnknown = 0,
-    kWaitStatusSuccess,
-    kWaitStatusFailure,
-    kWaitStatusCancelled,
-    kWaitStatusTimeout
-};
 
 @interface IVGDownloadManagerTests : GHAsyncTestCase {
     IVGDownloadManager *downloadManager_;
@@ -42,16 +35,16 @@ enum {
     [downloadManager_ 
      verifyConnectionWithTimeout:kTestTimeout
      onSuccess:^{
-         [self notify:kWaitStatusSuccess forSelector:@selector(testVerifyConnection)];
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnection)];
      }
      onFailure:^(NSError* error) {
-         [self notify:kWaitStatusFailure forSelector:@selector(testVerifyConnection)];
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnection)];
      }
      onTimeout:^{
-         [self notify:kWaitStatusTimeout forSelector:@selector(testVerifyConnection)];
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnection)];
      }];
     
-    [self waitForStatus:kWaitStatusSuccess timeout:kTestTimeout];
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
 }
 
 

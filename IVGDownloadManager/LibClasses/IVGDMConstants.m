@@ -11,3 +11,5 @@
 const NSString* kIVGDMBlockTypeSuccess = @"kIVGDMBlockTypeSuccess";
 const NSString* kIVGDMBlockTypeFailure = @"kIVGDMBlockTypeFailure";
 const NSString* kIVGDMBlockTypeTimeout = @"kIVGDMBlockTypeTimeout";
+
+const NSTimeInterval kIVGDMTimeoutTimerInterval = 1.0; // check every 1 second

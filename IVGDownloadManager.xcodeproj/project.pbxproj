@@ -27,6 +27,10 @@
 		F88A470714D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */; };
 		F88A470814D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */; };
 		F88A470B14D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */; };
+		F88A470E14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F88A470C14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h */; };
+		F88A470F14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470D14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m */; };
+		F88A471014D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A470D14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m */; };
+		F88A471214D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F88A471114D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,9 @@
 		F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConnectionBlockMap.h; sourceTree = "<group>"; };
 		F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionBlockMap.m; sourceTree = "<group>"; };
 		F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionBlockMapTests.m; sourceTree = "<group>"; };
+		F88A470C14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConnectionTimeoutManager.h; sourceTree = "<group>"; };
+		F88A470D14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionTimeoutManager.m; sourceTree = "<group>"; };
+		F88A471114D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionTimeoutManagerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +164,7 @@
 			children = (
 				F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */,
 				F88A470914D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m */,
+				F88A471114D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m */,
 			);
 			path = TestClasses;
 			sourceTree = "<group>";
@@ -216,6 +224,8 @@
 				F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */,
 				F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */,
 				F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */,
+				F88A470C14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h */,
+				F88A470D14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m */,
 			);
 			path = LibClasses;
 			sourceTree = "<group>";
@@ -230,6 +240,7 @@
 				F879DC2C14D642E900A3DA1C /* IVGDownloadManager.h in Headers */,
 				F879DC3914D6488800A3DA1C /* IVGDMConstants.h in Headers */,
 				F88A470614D65AE000C9B205 /* IVGDMConnectionBlockMap.h in Headers */,
+				F88A470E14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +326,7 @@
 				F879DC2D14D642E900A3DA1C /* IVGDownloadManager.m in Sources */,
 				F88A470114D655A600C9B205 /* IVGDMConstants.m in Sources */,
 				F88A470714D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */,
+				F88A470F14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +340,8 @@
 				F88A470214D655A600C9B205 /* IVGDMConstants.m in Sources */,
 				F88A470814D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */,
 				F88A470B14D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m in Sources */,
+				F88A471014D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */,
+				F88A471214D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
