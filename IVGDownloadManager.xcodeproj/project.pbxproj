@@ -9,14 +9,36 @@
 /* Begin PBXBuildFile section */
 		F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
 		F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */; };
+		F879DC0314D641B300A3DA1C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC0214D641B300A3DA1C /* UIKit.framework */; };
+		F879DC0414D641B300A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
+		F879DC0614D641B300A3DA1C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC0514D641B300A3DA1C /* CoreGraphics.framework */; };
+		F879DC0C14D641B300A3DA1C /* GHUnitIOSTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC0B14D641B300A3DA1C /* GHUnitIOSTestMain.m */; };
+		F879DC1214D641B400A3DA1C /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC1114D641B400A3DA1C /* GHUnitIOS.framework */; };
+		F879DC1614D641B400A3DA1C /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC1514D641B400A3DA1C /* libOCMock.a */; };
+		F879DC2314D6425900A3DA1C /* IVGDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIVGDownloadManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F879DBEF14D6418F00A3DA1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */ = {isa = PBXFileReference; path = "IVGDownloadManager-Prefix.pch"; sourceTree = "<group>"; };
-		F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; path = IVGDownloadManager.h; sourceTree = "<group>"; };
+		F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IVGDownloadManager-Prefix.pch"; sourceTree = "<group>"; };
+		F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManager.h; sourceTree = "<group>"; };
 		F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
+		F879DC0014D641B300A3DA1C /* IVGDownloadManagerTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IVGDownloadManagerTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F879DC0214D641B300A3DA1C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F879DC0514D641B300A3DA1C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F879DC0914D641B300A3DA1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F879DC0A14D641B300A3DA1C /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		F879DC0B14D641B300A3DA1C /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
+		F879DC1114D641B400A3DA1C /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = Frameworks/GHUnitIOS.framework; sourceTree = "<group>"; };
+		F879DC1514D641B400A3DA1C /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = Libraries/OCMock/libOCMock.a; sourceTree = "<group>"; };
+		F879DC1914D641B400A3DA1C /* OCMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMock.h; path = Libraries/OCMock/Headers/OCMock/OCMock.h; sourceTree = "<group>"; };
+		F879DC1A14D641B400A3DA1C /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+OCMAdditions.h"; path = "Libraries/OCMock/Headers/OCMock/NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		F879DC1B14D641B400A3DA1C /* OCMArg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMArg.h; path = Libraries/OCMock/Headers/OCMock/OCMArg.h; sourceTree = "<group>"; };
+		F879DC1C14D641B400A3DA1C /* OCMConstraint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMConstraint.h; path = Libraries/OCMock/Headers/OCMock/OCMConstraint.h; sourceTree = "<group>"; };
+		F879DC1D14D641B400A3DA1C /* OCMockObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Libraries/OCMock/Headers/OCMock/OCMockObject.h; sourceTree = "<group>"; };
+		F879DC1E14D641B400A3DA1C /* OCMockRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockRecorder.h; path = Libraries/OCMock/Headers/OCMock/OCMockRecorder.h; sourceTree = "<group>"; };
+		F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManagerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +50,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F879DBFD14D641B300A3DA1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F879DC0314D641B300A3DA1C /* UIKit.framework in Frameworks */,
+				F879DC0414D641B300A3DA1C /* Foundation.framework in Frameworks */,
+				F879DC0614D641B300A3DA1C /* CoreGraphics.framework in Frameworks */,
+				F879DC1214D641B400A3DA1C /* GHUnitIOS.framework in Frameworks */,
+				F879DC1614D641B400A3DA1C /* libOCMock.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -35,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				F879DBF114D6418F00A3DA1C /* IVGDownloadManager */,
+				F879DC0714D641B300A3DA1C /* IVGDownloadManagerTests */,
 				F879DBEE14D6418F00A3DA1C /* Frameworks */,
 				F879DBED14D6418F00A3DA1C /* Products */,
 			);
@@ -44,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */,
+				F879DC0014D641B300A3DA1C /* IVGDownloadManagerTests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -52,6 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				F879DBEF14D6418F00A3DA1C /* Foundation.framework */,
+				F879DC0214D641B300A3DA1C /* UIKit.framework */,
+				F879DC0514D641B300A3DA1C /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -72,6 +110,81 @@
 				F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F879DC0714D641B300A3DA1C /* IVGDownloadManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC0D14D641B300A3DA1C /* TestClasses */,
+				F879DC1014D641B400A3DA1C /* Frameworks */,
+				F879DC1314D641B400A3DA1C /* Libraries */,
+				F879DC0814D641B300A3DA1C /* Supporting Files */,
+			);
+			path = IVGDownloadManagerTests;
+			sourceTree = "<group>";
+		};
+		F879DC0814D641B300A3DA1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC0914D641B300A3DA1C /* Info.plist */,
+				F879DC0A14D641B300A3DA1C /* Prefix.pch */,
+				F879DC0B14D641B300A3DA1C /* GHUnitIOSTestMain.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F879DC0D14D641B300A3DA1C /* TestClasses */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */,
+			);
+			path = TestClasses;
+			sourceTree = "<group>";
+		};
+		F879DC1014D641B400A3DA1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC1114D641B400A3DA1C /* GHUnitIOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F879DC1314D641B400A3DA1C /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC1414D641B400A3DA1C /* OCMock */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		F879DC1414D641B400A3DA1C /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC1514D641B400A3DA1C /* libOCMock.a */,
+				F879DC1714D641B400A3DA1C /* Headers */,
+			);
+			name = OCMock;
+			sourceTree = "<group>";
+		};
+		F879DC1714D641B400A3DA1C /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC1814D641B400A3DA1C /* OCMock */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		F879DC1814D641B400A3DA1C /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC1914D641B400A3DA1C /* OCMock.h */,
+				F879DC1A14D641B400A3DA1C /* NSNotificationCenter+OCMAdditions.h */,
+				F879DC1B14D641B400A3DA1C /* OCMArg.h */,
+				F879DC1C14D641B400A3DA1C /* OCMConstraint.h */,
+				F879DC1D14D641B400A3DA1C /* OCMockObject.h */,
+				F879DC1E14D641B400A3DA1C /* OCMockRecorder.h */,
+			);
+			name = OCMock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +217,23 @@
 			productReference = F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		F879DBFF14D641B300A3DA1C /* IVGDownloadManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F879DC1F14D641B400A3DA1C /* Build configuration list for PBXNativeTarget "IVGDownloadManagerTests" */;
+			buildPhases = (
+				F879DBFC14D641B300A3DA1C /* Sources */,
+				F879DBFD14D641B300A3DA1C /* Frameworks */,
+				F879DBFE14D641B300A3DA1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IVGDownloadManagerTests;
+			productName = IVGDownloadManagerTests;
+			productReference = F879DC0014D641B300A3DA1C /* IVGDownloadManagerTests.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -126,9 +256,20 @@
 			projectRoot = "";
 			targets = (
 				F879DBEB14D6418F00A3DA1C /* IVGDownloadManager */,
+				F879DBFF14D641B300A3DA1C /* IVGDownloadManagerTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F879DBFE14D641B300A3DA1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F879DBE814D6418F00A3DA1C /* Sources */ = {
@@ -136,6 +277,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F879DBFC14D641B300A3DA1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F879DC0C14D641B300A3DA1C /* GHUnitIOSTestMain.m in Sources */,
+				F879DC2314D6425900A3DA1C /* IVGDownloadManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +356,66 @@
 			};
 			name = Release;
 		};
+		F879DC2014D641B400A3DA1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/IVGDownloadManagerTests/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = IVGDownloadManagerTests/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "\"IVGDownloadManagerTests/Libraries\"/**";
+				INFOPLIST_FILE = IVGDownloadManagerTests/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"\"IVGDownloadManagerTests/Libraries\"/**",
+					"\"$(SRCROOT)/IVGDownloadManagerTests/Libraries/OCMock\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F879DC2114D641B400A3DA1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/IVGDownloadManagerTests/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = IVGDownloadManagerTests/Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = "\"IVGDownloadManagerTests/Libraries\"/**";
+				INFOPLIST_FILE = IVGDownloadManagerTests/Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"\"IVGDownloadManagerTests/Libraries\"/**",
+					"\"$(SRCROOT)/IVGDownloadManagerTests/Libraries/OCMock\"",
+				);
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -223,6 +433,14 @@
 			buildConfigurations = (
 				F879DBFA14D6418F00A3DA1C /* Debug */,
 				F879DBFB14D6418F00A3DA1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F879DC1F14D641B400A3DA1C /* Build configuration list for PBXNativeTarget "IVGDownloadManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F879DC2014D641B400A3DA1C /* Debug */,
+				F879DC2114D641B400A3DA1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
