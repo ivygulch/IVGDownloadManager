@@ -47,6 +47,7 @@
     if (successBlock) {
         successBlock();
     }
+    [connection release];
 }
 
 - (void) connectionFailure:(NSURLConnection *) connection error:(NSError *) error; 
@@ -55,6 +56,7 @@
     if (errorBlock) {
         errorBlock(error);
     }
+    [connection release];
 }
 
 - (void) connectionTimeout:(NSURLConnection *) connection {
@@ -63,27 +65,73 @@
     if (timeoutBlock) {
         timeoutBlock();
     }
+    [connection release];
 }
 
-- (void) startConnection:(NSURLConnection *) connection withTimeout:(NSTimeInterval) timeout {
+- (void) startRequest:(NSURLRequest *) request
+          withTimeout:(NSTimeInterval) timeout
+            onSuccess:(IVGDMSuccessBlock) successBlock 
+            onFailure:(IVGDMErrorBlock) failureBlock
+            onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+{
+    NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
+
+    [self.connectionBlockMap addBlock:successBlock type:kIVGDMBlockTypeSuccess forConnection:connection];
+    [self.connectionBlockMap addBlock:failureBlock type:kIVGDMBlockTypeFailure forConnection:connection];
+    [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
+    [self.connectionTimeoutManager startMonitoringConnection:connection forTimeout:timeout];
+    
     [connection start];
 }
 
+- (NSString*)urlEscape:(NSString *)unencodedString {
+	NSString *s = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                      (CFStringRef)unencodedString,
+                                                                      NULL,
+                                                                      (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                                                                      kCFStringEncodingUTF8);
+	return [s autorelease]; // Due to the 'create rule' we own the above and must autorelease it
+}
+
+
+- (NSURLRequest *) requestWithRelativeURI:(NSString *) relativeURI parameters:(NSDictionary *) params 
+{
+    NSMutableString *urlStr = [NSMutableString stringWithString:self.baseURL];
+    if (relativeURI) {
+        if (![self.baseURL hasSuffix:@"/"] && ![relativeURI hasPrefix:@"/"]) {
+            [urlStr appendString:@"/"];
+        }
+        [urlStr appendString:relativeURI];
+    }
+    if ([params count] > 0) {
+        NSString *sep = ([urlStr rangeOfString:@"?"].location == NSNotFound) ? @"?" : @"&";
+        for (NSString *key in [params keyEnumerator]) {
+            NSString *value = [params objectForKey:key];
+            [urlStr appendFormat:@"%@%@=%@", sep, [self urlEscape:key], [self urlEscape:value]];
+            sep = @"&";
+        }
+    }
+    NSURL *url = [NSURL URLWithString:urlStr];
+    return [NSURLRequest requestWithURL:url];
+}
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
                            onSuccess:(IVGDMSuccessBlock) successBlock 
                            onFailure:(IVGDMErrorBlock) failureBlock
                            onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.baseURL]];
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-    
-    [self.connectionBlockMap addBlock:successBlock type:kIVGDMBlockTypeSuccess forConnection:connection];
-    [self.connectionBlockMap addBlock:failureBlock type:kIVGDMBlockTypeFailure forConnection:connection];
-    [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
-    [self.connectionTimeoutManager startMonitoringConnection:connection forTimeout:timeout];
+    NSURLRequest *request = [self requestWithRelativeURI:nil parameters:nil];
+    [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
+}
 
-    [self startConnection:connection withTimeout:timeout];
+- (void) getTimestampFor:(NSString *) relativeURI
+             withTimeout:(NSTimeInterval) timeout
+               onSuccess:(IVGDMSuccessBlock) successBlock 
+               onFailure:(IVGDMErrorBlock) failureBlock
+               onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+{
+    NSURLRequest *request = [self requestWithRelativeURI:relativeURI parameters:nil];
+    [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
 }
 
 #pragma mark - NSURLConnectionDelegate methods

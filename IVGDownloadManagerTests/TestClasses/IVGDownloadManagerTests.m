@@ -51,19 +51,45 @@
 {
     [downloadManager_ release];
     downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"No such URL"];
-
+    
     [self prepare];
     
     [downloadManager_ 
      verifyConnectionWithTimeout:kTestTimeout
      onSuccess:^{
-         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionInvalidURL)];
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionInvalidURL)];
      }
      onFailure:^(NSError* error) {
-         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionInvalidURL)];
+         NSLog(@"testVerifyConnectionInvalidURL, onFailure: %@", [error localizedDescription]);
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionInvalidURL)];
      }
      onTimeout:^{
-         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionInvalidURL)];
+         NSLog(@"testVerifyConnectionInvalidURL, onTimeout");
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionInvalidURL)];
+     }];
+    
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
+}
+
+- (void)testVerifyConnectionFakeURL
+{
+    [downloadManager_ release];
+    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"http://validurlthatdoesnotexist.really"];
+    
+    [self prepare];
+    
+    [downloadManager_ 
+     verifyConnectionWithTimeout:kTestTimeout
+     onSuccess:^{
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionFakeURL)];
+     }
+     onFailure:^(NSError* error) {
+         NSLog(@"testVerifyConnectionInvalidURL, onFailure: %@", [error localizedDescription]);
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionFakeURL)];
+     }
+     onTimeout:^{
+         NSLog(@"testVerifyConnectionInvalidURL, onTimeout");
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionFakeURL)];
      }];
     
     [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
