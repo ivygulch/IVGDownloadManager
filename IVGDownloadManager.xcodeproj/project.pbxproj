@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
-		F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */; };
 		F879DC0314D641B300A3DA1C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC0214D641B300A3DA1C /* UIKit.framework */; };
 		F879DC0414D641B300A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
 		F879DC0614D641B300A3DA1C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC0514D641B300A3DA1C /* CoreGraphics.framework */; };
@@ -16,19 +15,23 @@
 		F879DC1214D641B400A3DA1C /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC1114D641B400A3DA1C /* GHUnitIOS.framework */; };
 		F879DC1614D641B400A3DA1C /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC1514D641B400A3DA1C /* libOCMock.a */; };
 		F879DC2314D6425900A3DA1C /* IVGDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */; };
+		F879DC2C14D642E900A3DA1C /* IVGDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */; };
+		F879DC2D14D642E900A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */; };
+		F879DC2E14D642E900A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */; };
+		F879DC3014D6431E00A3DA1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */; };
+		F879DC3114D6432E00A3DA1C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */; };
+		F879DC3914D6488800A3DA1C /* IVGDownloadManagerConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIVGDownloadManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F879DBEF14D6418F00A3DA1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IVGDownloadManager-Prefix.pch"; sourceTree = "<group>"; };
-		F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManager.h; sourceTree = "<group>"; };
-		F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
 		F879DC0014D641B300A3DA1C /* IVGDownloadManagerTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IVGDownloadManagerTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F879DC0214D641B300A3DA1C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F879DC0514D641B300A3DA1C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F879DC0914D641B300A3DA1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F879DC0A14D641B300A3DA1C /* Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		F879DC0914D641B300A3DA1C /* IVGDownloadManagerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IVGDownloadManagerTests-Info.plist"; sourceTree = "<group>"; };
+		F879DC0A14D641B300A3DA1C /* IVGDownloadManagerTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IVGDownloadManagerTests-Prefix.pch"; sourceTree = "<group>"; };
 		F879DC0B14D641B300A3DA1C /* GHUnitIOSTestMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHUnitIOSTestMain.m; sourceTree = "<group>"; };
 		F879DC1114D641B400A3DA1C /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = Frameworks/GHUnitIOS.framework; sourceTree = "<group>"; };
 		F879DC1514D641B400A3DA1C /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = Libraries/OCMock/libOCMock.a; sourceTree = "<group>"; };
@@ -39,6 +42,10 @@
 		F879DC1D14D641B400A3DA1C /* OCMockObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Libraries/OCMock/Headers/OCMock/OCMockObject.h; sourceTree = "<group>"; };
 		F879DC1E14D641B400A3DA1C /* OCMockRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockRecorder.h; path = Libraries/OCMock/Headers/OCMock/OCMockRecorder.h; sourceTree = "<group>"; };
 		F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManagerTests.m; sourceTree = "<group>"; };
+		F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManager.h; sourceTree = "<group>"; };
+		F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
+		F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManagerConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F879DC3014D6431E00A3DA1C /* CFNetwork.framework in Frameworks */,
 				F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,6 +67,7 @@
 				F879DC0614D641B300A3DA1C /* CoreGraphics.framework in Frameworks */,
 				F879DC1214D641B400A3DA1C /* GHUnitIOS.framework in Frameworks */,
 				F879DC1614D641B400A3DA1C /* libOCMock.a in Frameworks */,
+				F879DC3114D6432E00A3DA1C /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +96,7 @@
 		F879DBEE14D6418F00A3DA1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */,
 				F879DBEF14D6418F00A3DA1C /* Foundation.framework */,
 				F879DC0214D641B300A3DA1C /* UIKit.framework */,
 				F879DC0514D641B300A3DA1C /* CoreGraphics.framework */,
@@ -97,8 +107,7 @@
 		F879DBF114D6418F00A3DA1C /* IVGDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
-				F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */,
-				F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */,
+				F879DC2914D642E900A3DA1C /* LibClasses */,
 				F879DBF214D6418F00A3DA1C /* Supporting Files */,
 			);
 			path = IVGDownloadManager;
@@ -126,8 +135,8 @@
 		F879DC0814D641B300A3DA1C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				F879DC0914D641B300A3DA1C /* Info.plist */,
-				F879DC0A14D641B300A3DA1C /* Prefix.pch */,
+				F879DC0914D641B300A3DA1C /* IVGDownloadManagerTests-Info.plist */,
+				F879DC0A14D641B300A3DA1C /* IVGDownloadManagerTests-Prefix.pch */,
 				F879DC0B14D641B300A3DA1C /* GHUnitIOSTestMain.m */,
 			);
 			name = "Supporting Files";
@@ -187,6 +196,16 @@
 			name = OCMock;
 			sourceTree = "<group>";
 		};
+		F879DC2914D642E900A3DA1C /* LibClasses */ = {
+			isa = PBXGroup;
+			children = (
+				F879DC3714D6488800A3DA1C /* IVGDownloadManagerConstants.h */,
+				F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */,
+				F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */,
+			);
+			path = LibClasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -194,6 +213,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F879DC2C14D642E900A3DA1C /* IVGDownloadManager.h in Headers */,
+				F879DC3914D6488800A3DA1C /* IVGDownloadManagerConstants.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,7 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */,
+				F879DC2D14D642E900A3DA1C /* IVGDownloadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +307,7 @@
 			files = (
 				F879DC0C14D641B300A3DA1C /* GHUnitIOSTestMain.m in Sources */,
 				F879DC2314D6425900A3DA1C /* IVGDownloadManagerTests.m in Sources */,
+				F879DC2E14D642E900A3DA1C /* IVGDownloadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,11 +390,11 @@
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = IVGDownloadManagerTests/Prefix.pch;
+				GCC_PREFIX_HEADER = "IVGDownloadManagerTests/IVGDownloadManagerTests-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "\"IVGDownloadManagerTests/Libraries\"/**";
-				INFOPLIST_FILE = IVGDownloadManagerTests/Info.plist;
+				INFOPLIST_FILE = "IVGDownloadManagerTests/IVGDownloadManagerTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"\"IVGDownloadManagerTests/Libraries\"/**",
 					"\"$(SRCROOT)/IVGDownloadManagerTests/Libraries/OCMock\"",
@@ -397,10 +419,10 @@
 					"\"$(SRCROOT)/IVGDownloadManagerTests/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = IVGDownloadManagerTests/Prefix.pch;
+				GCC_PREFIX_HEADER = "IVGDownloadManagerTests/IVGDownloadManagerTests-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = "\"IVGDownloadManagerTests/Libraries\"/**";
-				INFOPLIST_FILE = IVGDownloadManagerTests/Info.plist;
+				INFOPLIST_FILE = "IVGDownloadManagerTests/IVGDownloadManagerTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"\"IVGDownloadManagerTests/Libraries\"/**",
 					"\"$(SRCROOT)/IVGDownloadManagerTests/Libraries/OCMock\"",
@@ -435,6 +457,7 @@
 				F879DBFB14D6418F00A3DA1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F879DC1F14D641B400A3DA1C /* Build configuration list for PBXNativeTarget "IVGDownloadManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +466,7 @@
 				F879DC2114D641B400A3DA1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
