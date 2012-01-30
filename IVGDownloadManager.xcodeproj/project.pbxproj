@@ -1,0 +1,232 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
+		F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIVGDownloadManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F879DBEF14D6418F00A3DA1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */ = {isa = PBXFileReference; path = "IVGDownloadManager-Prefix.pch"; sourceTree = "<group>"; };
+		F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; path = IVGDownloadManager.h; sourceTree = "<group>"; };
+		F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F879DBE914D6418F00A3DA1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F879DBE114D6418F00A3DA1C = {
+			isa = PBXGroup;
+			children = (
+				F879DBF114D6418F00A3DA1C /* IVGDownloadManager */,
+				F879DBEE14D6418F00A3DA1C /* Frameworks */,
+				F879DBED14D6418F00A3DA1C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F879DBED14D6418F00A3DA1C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F879DBEE14D6418F00A3DA1C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F879DBEF14D6418F00A3DA1C /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F879DBF114D6418F00A3DA1C /* IVGDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				F879DBF414D6418F00A3DA1C /* IVGDownloadManager.h */,
+				F879DBF514D6418F00A3DA1C /* IVGDownloadManager.m */,
+				F879DBF214D6418F00A3DA1C /* Supporting Files */,
+			);
+			path = IVGDownloadManager;
+			sourceTree = "<group>";
+		};
+		F879DBF214D6418F00A3DA1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F879DBEA14D6418F00A3DA1C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F879DBEB14D6418F00A3DA1C /* IVGDownloadManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F879DBF914D6418F00A3DA1C /* Build configuration list for PBXNativeTarget "IVGDownloadManager" */;
+			buildPhases = (
+				F879DBE814D6418F00A3DA1C /* Sources */,
+				F879DBE914D6418F00A3DA1C /* Frameworks */,
+				F879DBEA14D6418F00A3DA1C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IVGDownloadManager;
+			productName = IVGDownloadManager;
+			productReference = F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F879DBE314D6418F00A3DA1C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Ivy Gulch, LLC";
+			};
+			buildConfigurationList = F879DBE614D6418F00A3DA1C /* Build configuration list for PBXProject "IVGDownloadManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F879DBE114D6418F00A3DA1C;
+			productRefGroup = F879DBED14D6418F00A3DA1C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F879DBEB14D6418F00A3DA1C /* IVGDownloadManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F879DBE814D6418F00A3DA1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F879DBF614D6418F00A3DA1C /* IVGDownloadManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F879DBF714D6418F00A3DA1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F879DBF814D6418F00A3DA1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F879DBFA14D6418F00A3DA1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/IVGDownloadManager.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IVGDownloadManager/IVGDownloadManager-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F879DBFB14D6418F00A3DA1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/IVGDownloadManager.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IVGDownloadManager/IVGDownloadManager-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F879DBE614D6418F00A3DA1C /* Build configuration list for PBXProject "IVGDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F879DBF714D6418F00A3DA1C /* Debug */,
+				F879DBF814D6418F00A3DA1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F879DBF914D6418F00A3DA1C /* Build configuration list for PBXNativeTarget "IVGDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F879DBFA14D6418F00A3DA1C /* Debug */,
+				F879DBFB14D6418F00A3DA1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F879DBE314D6418F00A3DA1C /* Project object */;
+}
