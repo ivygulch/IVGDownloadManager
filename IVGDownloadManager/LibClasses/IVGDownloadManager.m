@@ -8,14 +8,17 @@
 
 #import "IVGDownloadManager.h"
 #import "IVGDMConnectionBlockMap.h"
+#import "IVGDMConnectionTimeoutManager.h"
 
 @interface IVGDownloadManager()
 @property (nonatomic,retain) IVGDMConnectionBlockMap *connectionBlockMap;
+@property (nonatomic,retain) IVGDMConnectionTimeoutManager *connectionTimeoutManager;
 @end
 
 @implementation IVGDownloadManager
 
 @synthesize connectionBlockMap = connectionBlockMap_;
+@synthesize connectionTimeoutManager = connectionTimeoutManager_;
 @synthesize baseURL = baseURL_;
 
 - (id)initWithBaseURL:(NSString *) baseURL;
@@ -24,6 +27,7 @@
     if (self) {
         baseURL_ = [baseURL copy];
         connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
+        connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
     }
     return self;
 }
@@ -32,12 +36,13 @@
 {
     [baseURL_ release], baseURL_ = nil;
     [connectionBlockMap_ release], connectionBlockMap_ = nil;
+    [connectionTimeoutManager_ release], connectionTimeoutManager_ = nil;
     
     [super dealloc];
 }
 
 - (void) startConnection:(NSURLConnection *) connection withTimeout:(NSTimeInterval) timeout {
-    
+    [connection start];
 }
 
 

@@ -27,6 +27,15 @@
 
 - (void) dealloc 
 {
+    // do a block release on any remaining blocks in the map
+    for (id ucKey in [connectionBlockMap_ keyEnumerator]) {
+        NSDictionary *blockMap = [connectionBlockMap_ objectForKey:ucKey];
+        for (const NSString* blockType in [blockMap keyEnumerator]) {
+            NSValue *blockRef = [blockMap objectForKey:blockType];
+            id block = [blockRef pointerValue];
+            Block_release(block);
+        }
+    }
     [connectionBlockMap_ release], connectionBlockMap_ = nil;
     
     [super dealloc];
