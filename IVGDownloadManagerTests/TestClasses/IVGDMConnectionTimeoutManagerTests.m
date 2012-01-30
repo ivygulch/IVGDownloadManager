@@ -20,10 +20,6 @@
 
 @implementation IVGDMConnectionTimeoutManagerTests
 
-- (BOOL) __shouldRunOnMainThread {
-    return YES; // NSTimer needs the main thread
-}
-
 - (void) setUp
 {
 	connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
@@ -62,7 +58,7 @@
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testTimeoutShouldNotOccur)];
      }];
     
-    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout];
+    [self waitForTimeout:kTestTimeout];
 }
 
 @end
