@@ -19,10 +19,10 @@
                            onSuccess:(IVGDMSuccessBlock) successBlock 
                            onFailure:(IVGDMErrorBlock) failureBlock
                            onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
-- (void) getTimestampFor:(NSString *) relativeURI
-             withTimeout:(NSTimeInterval) timeout
-               onSuccess:(IVGDMSuccessBlock) successBlock 
-               onFailure:(IVGDMErrorBlock) failureBlock
-               onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+- (void) headFor:(NSString *) relativeURI
+     withTimeout:(NSTimeInterval) timeout
+       onSuccess:(IVGDMSuccessBlock) successBlock 
+       onFailure:(IVGDMErrorBlock) failureBlock
+       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 
 @end

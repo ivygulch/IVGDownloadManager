@@ -12,12 +12,14 @@
 @interface IVGDownloadManager()
 @property (nonatomic,retain) IVGDMConnectionBlockMap *connectionBlockMap;
 @property (nonatomic,retain) IVGDMConnectionTimeoutManager *connectionTimeoutManager;
+@property (nonatomic,retain) NSMutableDictionary *connectionDataMap;
 @end
 
 @implementation IVGDownloadManager
 
 @synthesize connectionBlockMap = connectionBlockMap_;
 @synthesize connectionTimeoutManager = connectionTimeoutManager_;
+@synthesize connectionDataMap = connectionDataMap_;
 @synthesize baseURL = baseURL_;
 
 - (id)initWithBaseURL:(NSString *) baseURL;
@@ -28,6 +30,7 @@
         connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
         connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
         connectionTimeoutManager_.delegate = self;
+        connectionDataMap_ = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -37,17 +40,41 @@
     [baseURL_ release], baseURL_ = nil;
     [connectionBlockMap_ release], connectionBlockMap_ = nil;
     [connectionTimeoutManager_ release], connectionTimeoutManager_ = nil;
+    [connectionDataMap_ release], connectionDataMap_ = nil;
     
     [super dealloc];
+}
+
+- (id) connectionAsKey:(NSURLConnection *) connection {
+    return [NSValue valueWithPointer:connection];
+}
+
+- (NSMutableData *) dataForConnection:(NSURLConnection *) connection createIfMissing:(BOOL) createIfMissing
+{
+    id ucKey = [self connectionAsKey:connection];
+    NSMutableData *data = [self.connectionDataMap objectForKey:ucKey];
+    if (!data && createIfMissing) {
+        data = [NSMutableData data];
+        [self.connectionDataMap setObject:data forKey:ucKey];
+    }
+    return data;
+}
+
+- (void) cleanupConnection:(NSURLConnection *) connection 
+{
+    id ucKey = [self connectionAsKey:connection];
+    [self.connectionDataMap removeObjectForKey:ucKey];
+    [connection release];    
 }
 
 - (void) connectionSuccess:(NSURLConnection *) connection 
 {
     IVGDMSuccessBlock successBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeSuccess forConnection:connection];    
     if (successBlock) {
-        successBlock();
+        NSMutableData *data = [self dataForConnection:connection createIfMissing:NO];
+        successBlock(data);
     }
-    [connection release];
+    [self cleanupConnection:connection];
 }
 
 - (void) connectionFailure:(NSURLConnection *) connection error:(NSError *) error; 
@@ -56,16 +83,17 @@
     if (errorBlock) {
         errorBlock(error);
     }
-    [connection release];
+    [self cleanupConnection:connection];
 }
 
 - (void) connectionTimeout:(NSURLConnection *) connection {
     [connection cancel];
     IVGDMTimeoutBlock timeoutBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeTimeout forConnection:connection];    
     if (timeoutBlock) {
-        timeoutBlock();
+        NSMutableData *data = [self dataForConnection:connection createIfMissing:NO];
+        timeoutBlock(data);
     }
-    [connection release];
+    [self cleanupConnection:connection];
 }
 
 - (void) startRequest:(NSURLRequest *) request
@@ -94,7 +122,7 @@
 }
 
 
-- (NSURLRequest *) requestWithRelativeURI:(NSString *) relativeURI parameters:(NSDictionary *) params 
+- (NSMutableURLRequest *) requestWithRelativeURI:(NSString *) relativeURI parameters:(NSDictionary *) params 
 {
     NSMutableString *urlStr = [NSMutableString stringWithString:self.baseURL];
     if (relativeURI) {
@@ -112,7 +140,7 @@
         }
     }
     NSURL *url = [NSURL URLWithString:urlStr];
-    return [NSURLRequest requestWithURL:url];
+    return [NSMutableURLRequest requestWithURL:url];
 }
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
@@ -124,13 +152,14 @@
     [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
 }
 
-- (void) getTimestampFor:(NSString *) relativeURI
-             withTimeout:(NSTimeInterval) timeout
-               onSuccess:(IVGDMSuccessBlock) successBlock 
-               onFailure:(IVGDMErrorBlock) failureBlock
-               onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+- (void) headFor:(NSString *) relativeURI
+     withTimeout:(NSTimeInterval) timeout
+       onSuccess:(IVGDMSuccessBlock) successBlock 
+       onFailure:(IVGDMErrorBlock) failureBlock
+       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 {
-    NSURLRequest *request = [self requestWithRelativeURI:relativeURI parameters:nil];
+    NSMutableURLRequest *request = [self requestWithRelativeURI:relativeURI parameters:nil];
+    request.HTTPMethod = @"HEAD";
     [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
 }
 
