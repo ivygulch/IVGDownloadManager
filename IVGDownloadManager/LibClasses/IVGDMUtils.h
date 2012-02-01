@@ -12,5 +12,11 @@
 
 + (id) connectionAsKey:(NSURLConnection *) connection;
 + (id) keyAsConnection:(id) key;
++ (NSDictionary *)allHeaderFields:(NSURLResponse *) response;
+
++ (NSDateFormatter *) sharedDateFormatter;
++ (NSString *) stringFromDate:(NSDate *) value withFormat:(NSString *) format;
++ (NSDate *) dateFromString:(NSString *) value withFormat:(NSString *) format;
++ (NSDate *) lastModified:(NSURLResponse *) response;
 
 @end

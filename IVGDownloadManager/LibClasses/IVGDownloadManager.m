@@ -194,6 +194,37 @@
     [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
 }
 
+- (void) getFor:(NSString *) relativeURI
+ withCutoffDate:(NSDate *) cutoffDate
+        timeout:(NSTimeInterval) timeout
+      onIsNewer:(IVGDMSuccessBlock) isNewerBlock 
+     onNotNewer:(IVGDMSuccessBlock) notNewerBlock 
+      onFailure:(IVGDMErrorBlock) failureBlock
+      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+{
+    [self headFor:relativeURI
+      withTimeout:timeout
+        onSuccess:^(NSURLResponse *response, NSData *data){
+            NSLog(@"getFor:%@ ifNewerThan:%@", relativeURI, cutoffDate); 
+            NSDate *lastModifed = [IVGDMUtils lastModified:response];
+            NSLog(@"lastModified: %@", lastModifed);
+            
+            if ([lastModifed compare:cutoffDate] == NSOrderedDescending) {
+                [self getFor:relativeURI
+                 withTimeout:timeout 
+                   onSuccess:isNewerBlock
+                   onFailure:failureBlock
+                   onTimeout:timeoutBlock];
+            } else {
+                if (notNewerBlock != nil) {
+                    notNewerBlock(response, data);
+                }
+            }
+        }
+        onFailure:failureBlock
+        onTimeout:timeoutBlock];
+}
+
 #pragma mark - NSURLConnectionDelegate methods
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error

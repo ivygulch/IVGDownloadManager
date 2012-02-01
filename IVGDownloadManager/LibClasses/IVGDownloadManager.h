@@ -15,19 +15,30 @@
 @property (nonatomic,copy) NSString* baseURL;
 
 - (id)initWithBaseURL:(NSString *) baseURL;
+
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
                            onSuccess:(IVGDMSuccessBlock) successBlock 
                            onFailure:(IVGDMErrorBlock) failureBlock
                            onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+
 - (void) headFor:(NSString *) relativeURI
      withTimeout:(NSTimeInterval) timeout
        onSuccess:(IVGDMSuccessBlock) successBlock 
        onFailure:(IVGDMErrorBlock) failureBlock
        onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+
 - (void) getFor:(NSString *) relativeURI
-     withTimeout:(NSTimeInterval) timeout
-       onSuccess:(IVGDMSuccessBlock) successBlock 
-       onFailure:(IVGDMErrorBlock) failureBlock
-       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+    withTimeout:(NSTimeInterval) timeout
+      onSuccess:(IVGDMSuccessBlock) successBlock 
+      onFailure:(IVGDMErrorBlock) failureBlock
+      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+
+- (void) getFor:(NSString *) relativeURI
+ withCutoffDate:(NSDate *) cutoffDate
+        timeout:(NSTimeInterval) timeout
+      onIsNewer:(IVGDMSuccessBlock) isNewerBlock 
+     onNotNewer:(IVGDMSuccessBlock) notNewerBlock 
+      onFailure:(IVGDMErrorBlock) failureBlock
+      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 
 @end

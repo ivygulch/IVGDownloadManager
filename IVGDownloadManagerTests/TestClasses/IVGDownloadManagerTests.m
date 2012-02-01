@@ -8,6 +8,7 @@
 
 #import "IVGDownloadManager.h"
 #import "IVGDMConstants.h"
+#import "IVGDMUtils.h"
 
 #define kTestBaseURL @"http://ivygulch.com/test/IVGDownloadManagerTests"
 #define kTestTimeout 5.0
@@ -144,6 +145,90 @@
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
          NSLog(@"testGet, onTimeout: [%u], %@", [data length], dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGet)];
+     }];
+    
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
+}
+
+- (NSDate *) dateFromYear:(NSInteger) year month:(NSInteger) month day:(NSInteger) day
+                     hour:(NSInteger) hour minute:(NSInteger) minute second:(NSInteger) second {
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setYear:year];
+    [comps setMonth:month];
+    [comps setDay:day];
+    [comps setHour:hour];
+    [comps setMinute:minute];
+    [comps setSecond:second];
+    [comps setTimeZone:[[NSCalendar currentCalendar] timeZone]];
+    NSDate *result = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    [comps release];
+    return result;
+}
+
+- (void)testGetIfNewerThanExpectIsNewer
+{   
+    [self prepare];
+    
+    NSDate *cutoffDate = [self dateFromYear:2012 month:1 day:31
+                                       hour:04 minute:00 second:00];
+    
+    [downloadManager_ 
+     getFor:@"test1.txt"
+     withCutoffDate:cutoffDate
+     timeout:kTestTimeout
+     onIsNewer:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectIsNewer, onIsNewer: %@", dataStr);
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
+     }
+     onNotNewer:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectIsNewer, onNotNewer: %@", dataStr);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
+     }
+     onFailure:^(NSError* error) {
+         NSLog(@"testGetIfNewerThanExpectIsNewer, onFailure: %@", [error localizedDescription]);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
+     }
+     onTimeout:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectIsNewer, onTimeout: [%u], %@", [data length], dataStr);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
+     }];
+    
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
+}
+
+
+- (void)testGetIfNewerThanExpectNotNewer
+{   
+    [self prepare];
+    
+    NSDate *cutoffDate = [self dateFromYear:2013 month:1 day:31
+                                       hour:04 minute:00 second:00];
+    
+    [downloadManager_ 
+     getFor:@"test1.txt"
+     withCutoffDate:cutoffDate
+     timeout:kTestTimeout
+     onIsNewer:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectNotNewer, onIsNewer: %@", dataStr);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
+     }
+     onNotNewer:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectNotNewer, onNotNewer: %@", dataStr);
+         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
+     }
+     onFailure:^(NSError* error) {
+         NSLog(@"testGetIfNewerThanExpectNotNewer, onFailure: %@", [error localizedDescription]);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
+     }
+     onTimeout:^(NSURLResponse *response, NSData *data){
+         NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"testGetIfNewerThanExpectNotNewer, onTimeout: [%u], %@", [data length], dataStr);
+         [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }];
     
     [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
