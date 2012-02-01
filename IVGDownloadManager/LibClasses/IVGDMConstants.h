@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Ivy Gulch, LLC. All rights reserved.
 //
 
-typedef void (^IVGDMSuccessBlock)(NSData *data);
+typedef void (^IVGDMSuccessBlock)(NSURLResponse *response, NSData *data);
 typedef void (^IVGDMErrorBlock)(NSError *error);
-typedef void (^IVGDMTimeoutBlock)(NSData *data);
+typedef void (^IVGDMTimeoutBlock)(NSURLResponse *response, NSData *data);
 
 extern const NSString* kIVGDMBlockTypeSuccess;
 extern const NSString* kIVGDMBlockTypeFailure;

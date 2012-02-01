@@ -8,6 +8,7 @@
 
 #import "IVGDMConnectionTimeoutManager.h"
 #import "IVGDMConnectionBlockMap.h"
+#import "IVGDMUtils.h"
 
 @interface IVGDMConnectionTimeoutManager()
 @property (nonatomic,retain) NSTimer *timer;
@@ -42,10 +43,6 @@
     [super dealloc];
 }
 
-- (id) connectionAsKey:(NSURLConnection *) connection {
-    return [NSValue valueWithPointer:connection];
-}
-
 - (void) handleConnectionTimeout:(NSURLConnection *) connection;
 {
     [self stopMonitoringConnection:connection];
@@ -54,7 +51,7 @@
 
 - (void) checkConnectionTimeout:(NSURLConnection *) connection forDate:(NSDate *) checkDate;
 {
-    id ucKey = [self connectionAsKey:connection];
+    id ucKey = [IVGDMUtils connectionAsKey:connection];
     NSDate *lastTimestamp = [self.connectionTimestampMap objectForKey:ucKey];
     NSTimeInterval timeout = [[self.connectionTimeoutMap objectForKey:ucKey] doubleValue];
     NSDate *timeoutTimestamp = [NSDate dateWithTimeInterval:timeout sinceDate:lastTimestamp];
@@ -66,9 +63,10 @@
 
 - (void) timerTick:(NSTimer *) timer {
     NSDate *now = [NSDate date];
-    NSSet *keys = [NSSet setWithArray:[self.connectionTimestampMap allKeys]];
+    
+    NSArray *keys = [self.connectionTimestampMap allKeys];
     for (id ucKey in keys) {
-        NSURLConnection *connection = [ucKey pointerValue];
+        NSURLConnection *connection = [IVGDMUtils keyAsConnection:ucKey];
         [self checkConnectionTimeout:connection forDate:now];
     }
 }
@@ -93,7 +91,7 @@
 - (void) startMonitoringConnection:(NSURLConnection *) connection 
                         forTimeout:(NSTimeInterval) timeout
 {
-    id ucKey = [self connectionAsKey:connection];
+    id ucKey = [IVGDMUtils connectionAsKey:connection];
     [self.connectionTimeoutMap setObject:[NSNumber numberWithDouble:timeout] forKey:ucKey];
     [self.connectionTimestampMap setObject:[NSDate date] forKey:ucKey];
     [self checkTimer];
@@ -101,7 +99,7 @@
 
 - (void) stopMonitoringConnection:(NSURLConnection *) connection;
 {
-    id ucKey = [self connectionAsKey:connection];
+    id ucKey = [IVGDMUtils connectionAsKey:connection];
     [self.connectionTimestampMap removeObjectForKey:ucKey];
     [self.connectionTimeoutMap removeObjectForKey:ucKey];
     [self checkTimer];
@@ -109,7 +107,7 @@
 
 - (void) keepAlive:(NSURLConnection *) connection;
 {
-    [self.connectionTimestampMap setObject:[NSDate date] forKey:[self connectionAsKey:connection]];
+    [self.connectionTimestampMap setObject:[NSDate date] forKey:[IVGDMUtils connectionAsKey:connection]];
     [self checkTimer];
 }
 

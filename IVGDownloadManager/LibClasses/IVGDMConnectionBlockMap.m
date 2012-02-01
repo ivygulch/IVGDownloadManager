@@ -7,6 +7,7 @@
 //
 
 #import "IVGDMConnectionBlockMap.h"
+#import "IVGDMUtils.h"
 
 @interface IVGDMConnectionBlockMap()
 @property (nonatomic,retain) NSMutableDictionary *connectionBlockMap;
@@ -41,14 +42,10 @@
     [super dealloc];
 }
 
-- (id) connectionAsKey:(NSURLConnection *) connection {
-    return [NSValue valueWithPointer:connection];
-}
-
 - (NSMutableDictionary *) getBlockMapForConnection:(NSURLConnection *) connection
                                    createIfMissing:(BOOL) createIfMissing 
 {
-    id ucKey = [self connectionAsKey:connection];
+    id ucKey = [IVGDMUtils connectionAsKey:connection];
     NSMutableDictionary *blockMap = [self.connectionBlockMap objectForKey:ucKey];
     if (!blockMap && createIfMissing) {
         blockMap = [NSMutableDictionary dictionary];
@@ -59,7 +56,7 @@
 
 - (void) removeBlockMapForConnection:(NSURLConnection *) connection
 {
-    id ucKey = [self connectionAsKey:connection];
+    id ucKey = [IVGDMUtils connectionAsKey:connection];
     [self.connectionBlockMap removeObjectForKey:ucKey];
 }
 

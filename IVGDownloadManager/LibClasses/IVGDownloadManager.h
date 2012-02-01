@@ -24,5 +24,10 @@
        onSuccess:(IVGDMSuccessBlock) successBlock 
        onFailure:(IVGDMErrorBlock) failureBlock
        onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+- (void) getFor:(NSString *) relativeURI
+     withTimeout:(NSTimeInterval) timeout
+       onSuccess:(IVGDMSuccessBlock) successBlock 
+       onFailure:(IVGDMErrorBlock) failureBlock
+       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
 
 @end

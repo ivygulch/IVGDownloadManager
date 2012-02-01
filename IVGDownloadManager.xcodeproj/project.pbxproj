@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F80E474D14D8F19A007CFD71 /* IVGDMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = F80E474B14D8F19A007CFD71 /* IVGDMUtils.h */; };
+		F80E474E14D8F19A007CFD71 /* IVGDMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F80E474C14D8F19A007CFD71 /* IVGDMUtils.m */; };
+		F80E474F14D8F19A007CFD71 /* IVGDMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = F80E474C14D8F19A007CFD71 /* IVGDMUtils.m */; };
 		F879DBF014D6418F00A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
 		F879DC0314D641B300A3DA1C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DC0214D641B300A3DA1C /* UIKit.framework */; };
 		F879DC0414D641B300A3DA1C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F879DBEF14D6418F00A3DA1C /* Foundation.framework */; };
@@ -34,6 +37,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F80E474B14D8F19A007CFD71 /* IVGDMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMUtils.h; sourceTree = "<group>"; };
+		F80E474C14D8F19A007CFD71 /* IVGDMUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMUtils.m; sourceTree = "<group>"; };
 		F879DBEC14D6418F00A3DA1C /* libIVGDownloadManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIVGDownloadManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F879DBEF14D6418F00A3DA1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F879DBF314D6418F00A3DA1C /* IVGDownloadManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IVGDownloadManager-Prefix.pch"; sourceTree = "<group>"; };
@@ -220,6 +225,8 @@
 			children = (
 				F879DC3714D6488800A3DA1C /* IVGDMConstants.h */,
 				F88A46FF14D655A600C9B205 /* IVGDMConstants.m */,
+				F80E474B14D8F19A007CFD71 /* IVGDMUtils.h */,
+				F80E474C14D8F19A007CFD71 /* IVGDMUtils.m */,
 				F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */,
 				F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */,
 				F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */,
@@ -241,6 +248,7 @@
 				F879DC3914D6488800A3DA1C /* IVGDMConstants.h in Headers */,
 				F88A470614D65AE000C9B205 /* IVGDMConnectionBlockMap.h in Headers */,
 				F88A470E14D664C400C9B205 /* IVGDMConnectionTimeoutManager.h in Headers */,
+				F80E474D14D8F19A007CFD71 /* IVGDMUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +335,7 @@
 				F88A470114D655A600C9B205 /* IVGDMConstants.m in Sources */,
 				F88A470714D65AE000C9B205 /* IVGDMConnectionBlockMap.m in Sources */,
 				F88A470F14D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */,
+				F80E474E14D8F19A007CFD71 /* IVGDMUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +351,7 @@
 				F88A470B14D65FA200C9B205 /* IVGDMConnectionBlockMapTests.m in Sources */,
 				F88A471014D664C400C9B205 /* IVGDMConnectionTimeoutManager.m in Sources */,
 				F88A471214D665C400C9B205 /* IVGDMConnectionTimeoutManagerTests.m in Sources */,
+				F80E474F14D8F19A007CFD71 /* IVGDMUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
