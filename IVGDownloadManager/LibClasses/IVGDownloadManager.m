@@ -201,7 +201,7 @@
  withCutoffDate:(NSDate *) cutoffDate
         timeout:(NSTimeInterval) timeout
    isNewerBlock:(IVGDMSuccessBlock) isNewerBlock 
-isNotNewerBlock:(IVGDMSuccessBlock) notNewerBlock 
+notNewerBlock:(IVGDMSuccessBlock) notNewerBlock 
    failureBlock:(IVGDMErrorBlock) failureBlock
    timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {

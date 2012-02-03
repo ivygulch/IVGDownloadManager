@@ -186,9 +186,9 @@
          NSLog(@"testGetIfNewerThanExpectIsNewer, isNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }
-     isNotNewerBlock:^(NSURLResponse *response, NSData *data){
+     notNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectIsNewer, isNotNewerBlock: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectIsNewer, notNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }
      failureBlock:^(NSError* error) {
@@ -221,9 +221,9 @@
          NSLog(@"testGetIfNewerThanExpectNotNewer, isNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }
-     isNotNewerBlock:^(NSURLResponse *response, NSData *data){
+     notNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectNotNewer, isNotNewerBlock: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectNotNewer, notNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }
      failureBlock:^(NSError* error) {
