@@ -57,7 +57,7 @@
 		F879DC1D14D641B400A3DA1C /* OCMockObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockObject.h; path = Libraries/OCMock/Headers/OCMock/OCMockObject.h; sourceTree = "<group>"; };
 		F879DC1E14D641B400A3DA1C /* OCMockRecorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCMockRecorder.h; path = Libraries/OCMock/Headers/OCMock/OCMockRecorder.h; sourceTree = "<group>"; };
 		F879DC2214D6425900A3DA1C /* IVGDownloadManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManagerTests.m; sourceTree = "<group>"; };
-		F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDownloadManager.h; sourceTree = "<group>"; };
+		F879DC2A14D642E900A3DA1C /* IVGDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = IVGDownloadManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
 		F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F879DC3714D6488800A3DA1C /* IVGDMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConstants.h; sourceTree = "<group>"; };
@@ -279,6 +279,7 @@
 				F879DBFC14D641B300A3DA1C /* Sources */,
 				F879DBFD14D641B300A3DA1C /* Frameworks */,
 				F879DBFE14D641B300A3DA1C /* Resources */,
+				F8F1E61314DB038700572194 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -325,6 +326,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F8F1E61314DB038700572194 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh RunTests.sh";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F879DBE814D6418F00A3DA1C /* Sources */ = {

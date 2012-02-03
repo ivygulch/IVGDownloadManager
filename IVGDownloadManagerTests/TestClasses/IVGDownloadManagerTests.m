@@ -35,13 +35,13 @@
     
     [downloadManager_ 
      verifyConnectionWithTimeout:kTestTimeout
-     onSuccess:^(NSURLResponse *response, NSData *data){
+     successBlock:^(NSURLResponse *response, NSData *data){
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionValidURL)];
      }
-     onFailure:^(NSError* error) {
+     failureBlock:^(NSError* error) {
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionValidURL)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionValidURL)];
      }];
     
@@ -57,15 +57,15 @@
     
     [downloadManager_ 
      verifyConnectionWithTimeout:kTestTimeout
-     onSuccess:^(NSURLResponse *response, NSData *data){
+     successBlock:^(NSURLResponse *response, NSData *data){
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionInvalidURL)];
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testVerifyConnectionInvalidURL, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testVerifyConnectionInvalidURL, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionInvalidURL)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
-         NSLog(@"testVerifyConnectionInvalidURL, onTimeout");
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
+         NSLog(@"testVerifyConnectionInvalidURL, timeoutBlock");
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionInvalidURL)];
      }];
     
@@ -81,15 +81,15 @@
     
     [downloadManager_ 
      verifyConnectionWithTimeout:kTestTimeout
-     onSuccess:^(NSURLResponse *response, NSData *data){
+     successBlock:^(NSURLResponse *response, NSData *data){
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testVerifyConnectionFakeURL)];
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testVerifyConnectionInvalidURL, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testVerifyConnectionInvalidURL, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionFakeURL)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
-         NSLog(@"testVerifyConnectionInvalidURL, onTimeout");
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
+         NSLog(@"testVerifyConnectionInvalidURL, timeoutBlock");
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testVerifyConnectionFakeURL)];
      }];
     
@@ -102,21 +102,26 @@
     [downloadManager_ 
      headFor:@"test1.txt"
      withTimeout:kTestTimeout
-     onSuccess:^(NSURLResponse *response, NSData *data){
+     successBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testHead, onSuccess: %@", dataStr);
+         NSLog(@"testHead, successBlock[%u]: %@", [data length], dataStr);
          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
              NSLog(@"allHeaders:\n%@", [(NSHTTPURLResponse*)response allHeaderFields]);
          }
-         [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testHead)];
+         if ([data length] == 0) {
+             [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testHead)];
+         } else{
+             NSLog(@"expected data length of 0 in HEAD request, received %d bytes", [data length]);
+             [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testHead)];
+         }
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testHead, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testHead, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testHead)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testHead, onTimeout: [%u], %@", [data length], dataStr);
+         NSLog(@"testHead, timeoutBlock: [%u], %@", [data length], dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testHead)];
      }];
     
@@ -129,21 +134,21 @@
     [downloadManager_ 
      getFor:@"test1.txt"
      withTimeout:kTestTimeout
-     onSuccess:^(NSURLResponse *response, NSData *data){
+     successBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGet, onSuccess: %@", dataStr);
+         NSLog(@"testGet, successBlock: %@", dataStr);
          if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
              NSLog(@"allHeaders:\n%@", [(NSHTTPURLResponse*)response allHeaderFields]);
          }
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGet)];
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testGet, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testGet, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGet)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGet, onTimeout: [%u], %@", [data length], dataStr);
+         NSLog(@"testGet, timeoutBlock: [%u], %@", [data length], dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGet)];
      }];
     
@@ -176,23 +181,23 @@
      getFor:@"test1.txt"
      withCutoffDate:cutoffDate
      timeout:kTestTimeout
-     onIsNewer:^(NSURLResponse *response, NSData *data){
+     isNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectIsNewer, onIsNewer: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectIsNewer, isNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }
-     onNotNewer:^(NSURLResponse *response, NSData *data){
+     isNotNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectIsNewer, onNotNewer: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectIsNewer, isNotNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testGetIfNewerThanExpectIsNewer, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testGetIfNewerThanExpectIsNewer, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectIsNewer, onTimeout: [%u], %@", [data length], dataStr);
+         NSLog(@"testGetIfNewerThanExpectIsNewer, timeoutBlock: [%u], %@", [data length], dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectIsNewer)];
      }];
     
@@ -211,28 +216,49 @@
      getFor:@"test1.txt"
      withCutoffDate:cutoffDate
      timeout:kTestTimeout
-     onIsNewer:^(NSURLResponse *response, NSData *data){
+     isNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectNotNewer, onIsNewer: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectNotNewer, isNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }
-     onNotNewer:^(NSURLResponse *response, NSData *data){
+     isNotNewerBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectNotNewer, onNotNewer: %@", dataStr);
+         NSLog(@"testGetIfNewerThanExpectNotNewer, isNotNewerBlock: %@", dataStr);
          [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }
-     onFailure:^(NSError* error) {
-         NSLog(@"testGetIfNewerThanExpectNotNewer, onFailure: %@", [error localizedDescription]);
+     failureBlock:^(NSError* error) {
+         NSLog(@"testGetIfNewerThanExpectNotNewer, failureBlock: %@", [error localizedDescription]);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }
-     onTimeout:^(NSURLResponse *response, NSData *data){
+     timeoutBlock:^(NSURLResponse *response, NSData *data){
          NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-         NSLog(@"testGetIfNewerThanExpectNotNewer, onTimeout: [%u], %@", [data length], dataStr);
+         NSLog(@"testGetIfNewerThanExpectNotNewer, timeoutBlock: [%u], %@", [data length], dataStr);
          [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetIfNewerThanExpectNotNewer)];
      }];
     
     [self waitForStatus:kGHUnitWaitStatusSuccess timeout:kTestTimeout*2];
 }
 
+- (void) testGetData {
+    [self prepare];
+    
+    [downloadManager_ getFor:@"test1.txt"
+                 withTimeout:kTestTimeout
+                successBlock:^(NSURLResponse *response, NSData *data) {
+                    NSLog(@"testGetData, successBlock, data: %u", [data length]);
+                    GHAssertTrue([data length] > 0, @"Should have received data");
+                    [self notify:kGHUnitWaitStatusSuccess forSelector:@selector(testGetData)];
+                }
+                failureBlock:^(NSError *error) {
+                    NSLog(@"testGetData, failureBlock");
+                    [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetData)];
+                }
+                timeoutBlock:^(NSURLResponse *response, NSData *data) {
+                    NSLog(@"testGetData, timeoutBlock");
+                    [self notify:kGHUnitWaitStatusFailure forSelector:@selector(testGetData)];
+                }];
+    
+    [self waitForStatus:kGHUnitWaitStatusSuccess timeout:60];
+}
 
 @end

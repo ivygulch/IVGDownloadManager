@@ -89,7 +89,7 @@
     [self cleanupConnection:connection];
 }
 
-- (void) connectionFailure:(NSURLConnection *) connection error:(NSError *) error; 
+- (void) connectifailureBlock:(NSURLConnection *) connection error:(NSError *) error; 
 {
     IVGDMErrorBlock errorBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeFailure forConnection:connection];    
     if (errorBlock) {
@@ -111,9 +111,9 @@
 
 - (void) startRequest:(NSURLRequest *) request
           withTimeout:(NSTimeInterval) timeout
-            onSuccess:(IVGDMSuccessBlock) successBlock 
-            onFailure:(IVGDMErrorBlock) failureBlock
-            onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+         successBlock:(IVGDMSuccessBlock) successBlock 
+         failureBlock:(IVGDMErrorBlock) failureBlock
+         timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
     NSLog(@"startRequest: %@, %@", [request HTTPMethod], [request URL]);
@@ -164,65 +164,68 @@
 }
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
-                           onSuccess:(IVGDMSuccessBlock) successBlock 
-                           onFailure:(IVGDMErrorBlock) failureBlock
-                           onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+                        successBlock:(IVGDMSuccessBlock) successBlock 
+                        failureBlock:(IVGDMErrorBlock) failureBlock
+                        timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
-    NSURLRequest *request = [self requestWithRelativeURI:nil parameters:nil];
-    [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
+    [self headFor:nil
+      withTimeout:timeout
+     successBlock:successBlock
+     failureBlock:failureBlock
+     timeoutBlock:timeoutBlock];
 }
 
 - (void) headFor:(NSString *) relativeURI
      withTimeout:(NSTimeInterval) timeout
-       onSuccess:(IVGDMSuccessBlock) successBlock 
-       onFailure:(IVGDMErrorBlock) failureBlock
-       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+    successBlock:(IVGDMSuccessBlock) successBlock 
+    failureBlock:(IVGDMErrorBlock) failureBlock
+    timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
     NSMutableURLRequest *request = [self requestWithRelativeURI:relativeURI parameters:nil];
     [request setHTTPMethod:@"HEAD"];
-    [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
+    [self startRequest:request withTimeout:timeout successBlock:successBlock failureBlock:failureBlock timeoutBlock:timeoutBlock];
 }
 
 - (void) getFor:(NSString *) relativeURI
     withTimeout:(NSTimeInterval) timeout
-      onSuccess:(IVGDMSuccessBlock) successBlock 
-      onFailure:(IVGDMErrorBlock) failureBlock
-      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+   successBlock:(IVGDMSuccessBlock) successBlock 
+   failureBlock:(IVGDMErrorBlock) failureBlock
+   timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
     NSMutableURLRequest *request = [self requestWithRelativeURI:relativeURI parameters:nil];
     [request setHTTPMethod:@"GET"];
-    [self startRequest:request withTimeout:timeout onSuccess:successBlock onFailure:failureBlock onTimeout:timeoutBlock];
+    [self startRequest:request withTimeout:timeout successBlock:successBlock failureBlock:failureBlock timeoutBlock:timeoutBlock];
 }
 
 - (void) getFor:(NSString *) relativeURI
  withCutoffDate:(NSDate *) cutoffDate
         timeout:(NSTimeInterval) timeout
-      onIsNewer:(IVGDMSuccessBlock) isNewerBlock 
-     onNotNewer:(IVGDMSuccessBlock) notNewerBlock 
-      onFailure:(IVGDMErrorBlock) failureBlock
-      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+   isNewerBlock:(IVGDMSuccessBlock) isNewerBlock 
+isNotNewerBlock:(IVGDMSuccessBlock) notNewerBlock 
+   failureBlock:(IVGDMErrorBlock) failureBlock
+   timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
     [self headFor:relativeURI
       withTimeout:timeout
-        onSuccess:^(NSURLResponse *response, NSData *data){
-            NSLog(@"getFor:%@ ifNewerThan:%@", relativeURI, cutoffDate); 
-            NSDate *lastModifed = [IVGDMUtils lastModified:response];
-            NSLog(@"lastModified: %@", lastModifed);
-            
-            if ([lastModifed compare:cutoffDate] == NSOrderedDescending) {
-                [self getFor:relativeURI
-                 withTimeout:timeout 
-                   onSuccess:isNewerBlock
-                   onFailure:failureBlock
-                   onTimeout:timeoutBlock];
-            } else {
-                if (notNewerBlock != nil) {
-                    notNewerBlock(response, data);
-                }
-            }
-        }
-        onFailure:failureBlock
-        onTimeout:timeoutBlock];
+     successBlock:^(NSURLResponse *response, NSData *data){
+         NSLog(@"getFor:%@ ifNewerThan:%@", relativeURI, cutoffDate); 
+         NSDate *lastModifed = [IVGDMUtils lastModified:response];
+         NSLog(@"lastModified: %@", lastModifed);
+         
+         if ([lastModifed compare:cutoffDate] == NSOrderedDescending) {
+             [self getFor:relativeURI
+              withTimeout:timeout 
+             successBlock:isNewerBlock
+             failureBlock:failureBlock
+             timeoutBlock:timeoutBlock];
+         } else {
+             if (notNewerBlock != nil) {
+                 notNewerBlock(response, data);
+             }
+         }
+     }
+     failureBlock:failureBlock
+     timeoutBlock:timeoutBlock];
 }
 
 #pragma mark - NSURLConnectionDelegate methods
@@ -230,12 +233,12 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {    
     NSLog(@"connection:%p didFailWithError:%@", connection, [error localizedDescription]);
-    [self connectionFailure:connection error:error];
+    [self connectifailureBlock:connection error:error];
 }
 
 #pragma mark - NSURLConnectionDataDelegate methods
 
-- (NSURLRequest *)connection:(NSURLConnection *)connection
+- (NSURLRequest *)__connection:(NSURLConnection *)connection
              willSendRequest:(NSURLRequest *)request
             redirectResponse:(NSURLResponse *)redirectResponse
 {

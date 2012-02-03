@@ -17,28 +17,28 @@
 - (id)initWithBaseURL:(NSString *) baseURL;
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
-                           onSuccess:(IVGDMSuccessBlock) successBlock 
-                           onFailure:(IVGDMErrorBlock) failureBlock
-                           onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+                        successBlock:(IVGDMSuccessBlock) successBlock 
+                        failureBlock:(IVGDMErrorBlock) failureBlock
+                        timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 
 - (void) headFor:(NSString *) relativeURI
      withTimeout:(NSTimeInterval) timeout
-       onSuccess:(IVGDMSuccessBlock) successBlock 
-       onFailure:(IVGDMErrorBlock) failureBlock
-       onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+    successBlock:(IVGDMSuccessBlock) successBlock 
+    failureBlock:(IVGDMErrorBlock) failureBlock
+    timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 
 - (void) getFor:(NSString *) relativeURI
     withTimeout:(NSTimeInterval) timeout
-      onSuccess:(IVGDMSuccessBlock) successBlock 
-      onFailure:(IVGDMErrorBlock) failureBlock
-      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+   successBlock:(IVGDMSuccessBlock) successBlock 
+   failureBlock:(IVGDMErrorBlock) failureBlock
+   timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 
 - (void) getFor:(NSString *) relativeURI
  withCutoffDate:(NSDate *) cutoffDate
         timeout:(NSTimeInterval) timeout
-      onIsNewer:(IVGDMSuccessBlock) isNewerBlock 
-     onNotNewer:(IVGDMSuccessBlock) notNewerBlock 
-      onFailure:(IVGDMErrorBlock) failureBlock
-      onTimeout:(IVGDMTimeoutBlock) timeoutBlock;
+   isNewerBlock:(IVGDMSuccessBlock) isNewerBlock 
+isNotNewerBlock:(IVGDMSuccessBlock) notNewerBlock 
+   failureBlock:(IVGDMErrorBlock) failureBlock
+   timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 
 @end
