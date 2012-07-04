@@ -15,6 +15,9 @@
 @property (nonatomic,retain) IVGDMConnectionTimeoutManager *connectionTimeoutManager;
 @property (nonatomic,retain) NSMutableDictionary *connectionDataMap;
 @property (nonatomic,retain) NSMutableDictionary *connectionResponseMap;
+@property (nonatomic,copy) IVGDMTEmptyBlock startRequestBlock;
+@property (nonatomic,copy) IVGDMTEmptyBlock finishRequestBlock;
+
 @end
 
 @implementation IVGDownloadManager
@@ -24,12 +27,18 @@
 @synthesize connectionDataMap = connectionDataMap_;
 @synthesize connectionResponseMap = connectionResponseMap_;
 @synthesize baseURL = baseURL_;
+@synthesize startRequestBlock = startRequestBlock_;
+@synthesize finishRequestBlock = finishRequestBlock_;
 
-- (id)initWithBaseURL:(NSString *) baseURL;
+- (id)initWithBaseURL:(NSString *) baseURL
+    startRequestBlock:(IVGDMTEmptyBlock) startRequestBlock
+   finishRequestBlock:(IVGDMTEmptyBlock) finishRequestBlock;
 {
     self = [super init];
     if (self) {
         baseURL_ = [baseURL copy];
+        startRequestBlock_ = [startRequestBlock copy];
+        finishRequestBlock_ = [finishRequestBlock copy];
         connectionBlockMap_ = [[IVGDMConnectionBlockMap alloc] init];
         connectionTimeoutManager_ = [[IVGDMConnectionTimeoutManager alloc] init];
         connectionTimeoutManager_.delegate = self;
@@ -42,6 +51,8 @@
 - (void) dealloc 
 {
     [baseURL_ release], baseURL_ = nil;
+    [startRequestBlock_ release], startRequestBlock_ = nil;
+    [finishRequestBlock_ release], finishRequestBlock_ = nil;
     [connectionBlockMap_ release], connectionBlockMap_ = nil;
     connectionTimeoutManager_.delegate = nil;
     [connectionTimeoutManager_ release], connectionTimeoutManager_ = nil;
@@ -71,6 +82,10 @@
 
 - (void) cleanupConnection:(NSURLConnection *) connection 
 {
+    if (self.finishRequestBlock) {
+        self.finishRequestBlock();
+    }
+
     id ucKey = [IVGDMUtils connectionAsKey:connection];
     [self.connectionDataMap removeObjectForKey:ucKey];
     [self.connectionResponseMap removeObjectForKey:ucKey];
@@ -80,16 +95,32 @@
 
 - (void) connectionSuccess:(NSURLConnection *) connection 
 {
-    IVGDMSuccessBlock successBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeSuccess forConnection:connection];    
-    if (successBlock) {
-        NSURLResponse *response = [self responseForConnection:connection];
-        NSMutableData *data = [self dataForConnection:connection];
-        successBlock(response, data);
+    NSURLResponse *response = [self responseForConnection:connection];
+    NSUInteger statusCode = [IVGDMUtils httpStatusCode:response];
+    if (statusCode >= 399) {
+        IVGDMErrorBlock errorBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeFailure forConnection:connection];    
+        if (errorBlock) {
+            NSMutableData *data = [self dataForConnection:connection];
+            NSError *error = [NSError errorWithDomain:@"http" 
+                                                 code:statusCode 
+                                             userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                       data, @"data",
+                                                       response, @"response",
+                                                       [NSNumber numberWithInteger:statusCode], @"statusCode",
+                                                       nil]];
+            errorBlock(error);
+        }
+    } else {
+        IVGDMSuccessBlock successBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeSuccess forConnection:connection];    
+        if (successBlock) {
+            NSMutableData *data = [self dataForConnection:connection];
+            successBlock(response, data);
+        }
     }
     [self cleanupConnection:connection];
 }
 
-- (void) connectifailureBlock:(NSURLConnection *) connection error:(NSError *) error; 
+- (void) connectionFailureBlock:(NSURLConnection *) connection error:(NSError *) error; 
 {
     IVGDMErrorBlock errorBlock = [self.connectionBlockMap blockForType:kIVGDMBlockTypeFailure forConnection:connection];    
     if (errorBlock) {
@@ -116,7 +147,7 @@
          timeoutBlock:(IVGDMTimeoutBlock) timeoutBlock;
 {
     NSURLConnection* connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:NO];
-    NSLog(@"startRequest: %@, %@", [request HTTPMethod], [request URL]);
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"startRequest: %@, %@", [request HTTPMethod], [request URL]);
     
     // only store data that will be returned via a success or timeout block
     // wasted effort and memory to do otherwise since it would never be used
@@ -129,6 +160,9 @@
     [self.connectionBlockMap addBlock:timeoutBlock type:kIVGDMBlockTypeTimeout forConnection:connection];
     [self.connectionTimeoutManager startMonitoringConnection:connection forTimeout:timeout];
     
+    if (self.startRequestBlock) {
+        self.startRequestBlock();
+    }
     [connection start];
 }
 
@@ -141,6 +175,14 @@
 	return [s autorelease]; // Due to the 'create rule' we own the above and must autorelease it
 }
 
+- (NSString*)encodeURL:(NSString *)string
+{
+	NSString *newString = NSMakeCollectable([(NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)string, NULL, CFSTR(":/?#[]@!$ &'()*+,;=\"<>%{}|\\^~`"), CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) autorelease]);
+	if (newString) {
+		return newString;
+	}
+	return @"";
+}
 
 - (NSMutableURLRequest *) requestWithRelativeURI:(NSString *) relativeURI parameters:(NSDictionary *) params 
 {
@@ -149,7 +191,7 @@
         if (![self.baseURL hasSuffix:@"/"] && ![relativeURI hasPrefix:@"/"]) {
             [urlStr appendString:@"/"];
         }
-        [urlStr appendString:relativeURI];
+        [urlStr appendString:[self encodeURL:relativeURI]];
     }
     if ([params count] > 0) {
         NSString *sep = ([urlStr rangeOfString:@"?"].location == NSNotFound) ? @"?" : @"&";
@@ -160,7 +202,9 @@
         }
     }
     NSURL *url = [NSURL URLWithString:urlStr];
-    return [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *result = [NSMutableURLRequest requestWithURL:url];
+    result.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+    return result;
 }
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
@@ -208,11 +252,13 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
     [self headFor:relativeURI
       withTimeout:timeout
      successBlock:^(NSURLResponse *response, NSData *data){
-         NSLog(@"getFor:%@ ifNewerThan:%@", relativeURI, cutoffDate); 
          NSDate *lastModifed = [IVGDMUtils lastModified:response];
-         NSLog(@"lastModified: %@", lastModifed);
+         NSUInteger statusCode = [IVGDMUtils httpStatusCode:response];
+
+         IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"getFor:%@ ifNewerThan:%@, lastModified=%@, statusCode=%d", relativeURI, cutoffDate, lastModifed, statusCode); 
          
-         if ([lastModifed compare:cutoffDate] == NSOrderedDescending) {
+         if ((cutoffDate == nil)
+             || [lastModifed compare:cutoffDate] == NSOrderedDescending) {
              [self getFor:relativeURI
               withTimeout:timeout 
              successBlock:isNewerBlock
@@ -232,8 +278,8 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {    
-    NSLog(@"connection:%p didFailWithError:%@", connection, [error localizedDescription]);
-    [self connectifailureBlock:connection error:error];
+    IVGALog(@"connection:%p didFailWithError:%@", connection, [error localizedDescription]);
+    [self connectionFailureBlock:connection error:error];
 }
 
 #pragma mark - NSURLConnectionDataDelegate methods
@@ -242,7 +288,7 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
              willSendRequest:(NSURLRequest *)request
             redirectResponse:(NSURLResponse *)redirectResponse
 {
-    NSLog(@"connection:%p willSendRequest:%@ redirectResponse:%@", connection, [request HTTPMethod], redirectResponse);
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"connection:%p willSendRequest:%@ redirectResponse:%@", connection, [request HTTPMethod], redirectResponse);
     if ([[request HTTPMethod] isEqualToString:@"HEAD"]) {
         return request;
     }
@@ -254,7 +300,7 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response;
 {    
-    NSLog(@"connection:%p didReceiveResponse:%@", connection, response);
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"connection:%p didReceiveResponse:%@", connection, response);
     id ucKey = [IVGDMUtils connectionAsKey:connection];
     [self.connectionResponseMap setObject:response forKey:ucKey];
     [[self dataForConnection:connection] setLength:0];
@@ -262,7 +308,7 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data;
 {    
-    NSLog(@"connection:%p didReceiveData:%u", connection, [data length]);
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"connection:%p didReceiveData:%u", connection, [data length]);
     [[self dataForConnection:connection] appendData:data];
 }
 
@@ -270,12 +316,12 @@ notNewerBlock:(IVGDMSuccessBlock) notNewerBlock
  totalBytesWritten:(NSInteger)totalBytesWritten
 totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
 {    
-    NSLog(@"didSendBodyData");
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"didSendBodyData");
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection;
 {    
-    NSLog(@"connectionDidFinishLoading:%p", connection);
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"connectionDidFinishLoading:%p", connection);
     [self connectionSuccess:connection];
 }
 

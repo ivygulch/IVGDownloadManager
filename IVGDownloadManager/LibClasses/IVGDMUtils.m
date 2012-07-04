@@ -59,7 +59,18 @@ static NSString * const kLastModifiedTimestampFormat = @"EEE',' dd MMM yyyy HH':
 {
     NSDictionary *headers = [self allHeaderFields:response];
     NSString *lastModifiedStr = [headers objectForKey:@"Last-Modified"];
-    return [self dateFromString:lastModifiedStr withFormat:kLastModifiedTimestampFormat];
+    NSDate *result = [self dateFromString:lastModifiedStr withFormat:kLastModifiedTimestampFormat];
+    IVGDLog(IVGDBG_DEBUG, IVGDBG_CATEGORY_DOWNLOAD, @"lastModifiedStr: %@, result=%@\nfrom headers:\n%@", lastModifiedStr, result, headers);
+    return result;
+}
+
++ (NSUInteger) httpStatusCode:(NSURLResponse *) response
+{
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        return [(NSHTTPURLResponse*)response statusCode];
+    } else {
+        return 0;
+    }
 }
 
 

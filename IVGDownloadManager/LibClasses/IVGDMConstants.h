@@ -9,6 +9,7 @@
 typedef void (^IVGDMSuccessBlock)(NSURLResponse *response, NSData *data);
 typedef void (^IVGDMErrorBlock)(NSError *error);
 typedef void (^IVGDMTimeoutBlock)(NSURLResponse *response, NSData *data);
+typedef void (^IVGDMTEmptyBlock)();
 
 extern const NSString* kIVGDMBlockTypeSuccess;
 extern const NSString* kIVGDMBlockTypeFailure;

@@ -18,5 +18,6 @@
 + (NSString *) stringFromDate:(NSDate *) value withFormat:(NSString *) format;
 + (NSDate *) dateFromString:(NSString *) value withFormat:(NSString *) format;
 + (NSDate *) lastModified:(NSURLResponse *) response;
++ (NSUInteger) httpStatusCode:(NSURLResponse *) response;
 
 @end

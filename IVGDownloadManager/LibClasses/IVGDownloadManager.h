@@ -14,7 +14,9 @@
 
 @property (nonatomic,copy) NSString* baseURL;
 
-- (id)initWithBaseURL:(NSString *) baseURL;
+- (id)initWithBaseURL:(NSString *) baseURL
+    startRequestBlock:(IVGDMTEmptyBlock) startRequestBlock
+   finishRequestBlock:(IVGDMTEmptyBlock) finishRequestBlock;
 
 - (void) verifyConnectionWithTimeout:(NSTimeInterval) timeout
                         successBlock:(IVGDMSuccessBlock) successBlock 
