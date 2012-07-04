@@ -22,7 +22,7 @@
 
 - (void)setUp
 {
-    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:kTestBaseURL];
+    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:kTestBaseURL startRequestBlock:nil finishRequestBlock:nil];
 }
 
 - (void) tearDown {
@@ -51,8 +51,8 @@
 - (void)testVerifyConnectionInvalidURL 
 {
     [downloadManager_ release];
-    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"No such URL"];
-    
+    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"No such URL" startRequestBlock:nil finishRequestBlock:nil];
+
     [self prepare];
     
     [downloadManager_ 
@@ -75,7 +75,7 @@
 - (void)testVerifyConnectionFakeURL
 {
     [downloadManager_ release];
-    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"http://validurlthatdoesnotexist.really"];
+    downloadManager_ = [[IVGDownloadManager alloc] initWithBaseURL:@"http://validurlthatdoesnotexist.really" startRequestBlock:nil finishRequestBlock:nil];
     
     [self prepare];
     

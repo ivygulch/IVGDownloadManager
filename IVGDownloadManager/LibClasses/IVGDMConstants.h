@@ -16,3 +16,5 @@ extern const NSString* kIVGDMBlockTypeFailure;
 extern const NSString* kIVGDMBlockTypeTimeout;
 
 extern const NSTimeInterval kIVGDMTimeoutTimerInterval;
+
+#define IVGDBG_CATEGORY_DOWNLOAD IVGDBG_DEBUG
