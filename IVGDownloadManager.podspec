@@ -15,8 +15,7 @@ Pod::Spec.new do |s|
   s.author       = { "dwsjoquist" => "dwsjoquist@sunetos.com"}
   s.source       = { :git => "https://github.com/ivygulch/IVGDownloadManager.git", :tag => '1.0.0' }
   s.platform     = :ios, '5.0'
-  s.source_files = 'IVGDownloadManager/LibClasses/*.{h.m}'
-  s.public_header_files = 'IVGDownloadManager/LibClasses/*.h'
+  s.source_files = 'IVGDownloadManager/LibClasses'
   s.frameworks = 'CFNetwork', 'Foundation','UIKit','CoreGraphics'
   s.requires_arc = false
 end
