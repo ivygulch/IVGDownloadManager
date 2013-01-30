@@ -7,6 +7,8 @@
 //
 
 #import "IVGDMUtils.h"
+#import "IVGDebug.h"
+#import "IVGDMConstants.h"
 
 static NSString * const kLastModifiedTimestampFormat = @"EEE',' dd MMM yyyy HH':'mm':'ss 'GMT'";
 

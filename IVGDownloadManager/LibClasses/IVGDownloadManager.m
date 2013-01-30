@@ -7,6 +7,8 @@
 //
 
 #import "IVGDownloadManager.h"
+#import "IVGDebug.h"
+#import "IVGDMConstants.h"
 #import "IVGDMConnectionBlockMap.h"
 #import "IVGDMUtils.h"
 
