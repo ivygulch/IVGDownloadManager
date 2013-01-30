@@ -63,6 +63,7 @@
 		F879DC2B14D642E900A3DA1C /* IVGDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDownloadManager.m; sourceTree = "<group>"; };
 		F879DC2F14D6431E00A3DA1C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F879DC3714D6488800A3DA1C /* IVGDMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConstants.h; sourceTree = "<group>"; };
+		F888E50D16B9BFFF0064A5DD /* IVGDownloadManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = IVGDownloadManager.podspec; sourceTree = "<group>"; };
 		F88A46FF14D655A600C9B205 /* IVGDMConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConstants.m; sourceTree = "<group>"; };
 		F88A470414D65AE000C9B205 /* IVGDMConnectionBlockMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IVGDMConnectionBlockMap.h; sourceTree = "<group>"; };
 		F88A470514D65AE000C9B205 /* IVGDMConnectionBlockMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IVGDMConnectionBlockMap.m; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		F879DBE114D6418F00A3DA1C = {
 			isa = PBXGroup;
 			children = (
+				F888E50D16B9BFFF0064A5DD /* IVGDownloadManager.podspec */,
 				F879DBF114D6418F00A3DA1C /* IVGDownloadManager */,
 				F879DC0714D641B300A3DA1C /* IVGDownloadManagerTests */,
 				F879DBEE14D6418F00A3DA1C /* Frameworks */,
